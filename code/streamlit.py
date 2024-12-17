@@ -31,7 +31,6 @@ def aggregate_data(filtered_data):
     ).reset_index()
     return aggregated_data
 
-# Main Streamlit App
 def main():
     st.title("Parking Violations Dashboard")
     st.write("Analyze parking violations by location and date range.")
@@ -69,6 +68,5 @@ def main():
         else:
             st.warning("No data matches the specified filters. Please try again.")
 
-# Run the Streamlit app
 if __name__ == "__main__":
     main()
