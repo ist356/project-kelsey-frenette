@@ -3,6 +3,7 @@
 Student Name:  Kelsey Frenette
 Student Email:  kfrenett@syr.edu
 
+I did this because I am one of so many college students who get parking tickets on or around campus and wanted to know how many syracuse actually gave out during the fall 2024 semester
 ### What it does
 For my project I decided to take all of parking violations in Syracuse, NY in 2024 and have it be extracted, transformed and analyzed. 
 this is a breakdown of each area:
