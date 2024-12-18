@@ -6,20 +6,16 @@ import matplotlib.pyplot as plt
 
 file_path = "cache/Parking Violations 2024.csv"
 
-# Load the dataset and parse the 'Date' column
-data = pd.read_csv(file_path, parse_dates=["Date"], low_memory=False)
+data = pd.read_csv(file_path, parse_dates=["Date"], low_memory=False) #load the datatset
 
-# Rename typo in column name
-data.rename(columns={"Amounnt": "Amount"}, inplace=True)
-data = data.drop(columns=["X", "Y", "z", "Unnamed: 8", "Unnamed: 9", "Unnamed: 10"], errors="ignore")
+data.rename(columns={"Amounnt": "Amount"}, inplace=True) # Rename typo in column name
+data = data.drop(columns=["X", "Y", "z", "Unnamed: 8", "Unnamed: 9", "Unnamed: 10"], errors="ignore") # Drop unnecessary columns
 
-# Define the streets to search for
-streets_of_interest = ["comstock", "walnut", "marshall", "university"]
+streets_of_interest = ["comstock", "walnut", "marshall", "university"] # Define the streets to search for
 
-# Clean and standardize Location column
-data["Location"] = data["Location"].str.strip().str.lower()
+data["Location"] = data["Location"].str.strip().str.lower() # Remove leading/trailing whitespaces and convert to lowercase
 
-# Filter data by streets and date range
+# Filter data 
 start_date = "2024-08-01"
 end_date = "2024-12-31"
 

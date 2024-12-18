@@ -2,8 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Simulated data (from provided text)
-data = {
+data = { # Simulated data (from provided text)
     "Location": [
         "100 comstock ave", "100 comstock pl", "100 marshall st", "100 walnut ave", "100 walnut pl",
         "1000 marshall st", "107 marshall st", "108 marshall st", "180 walnut pl", "200 comstock",
@@ -13,11 +12,9 @@ data = {
     "Total_Fines": [5130, 3035, 16395, 325, 18760, 75, 200, 100, 75, 75, 5000, 185, 7855, 75, 11760]
 }
 
-# Load data into a DataFrame
 aggregated_data = pd.DataFrame(data)
 
-# Filter for top locations by Total Tickets (optional, for cleaner charts)
-top_locations = aggregated_data.nlargest(10, "Total_Tickets")
+top_locations = aggregated_data.nlargest(10, "Total_Tickets") # Filter for top locations by Total Tickets and Total Fines
 
 colors = sns.color_palette("Set3", len(aggregated_data))  
 

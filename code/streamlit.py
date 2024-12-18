@@ -1,8 +1,8 @@
 import pandas as pd
 import streamlit as st
 
-# Function to load and clean the data
-@st.cache_data
+
+@st.cache_data # Function to load and clean the data
 def load_data(file_path):
     data = pd.read_csv(file_path, parse_dates=["Date"], low_memory=False)
     data.columns = data.columns.str.strip()
@@ -10,21 +10,17 @@ def load_data(file_path):
     data.rename(columns={"Amounnt": "Amount"}, inplace=True)
     return data
 
-# Function to filter data based on street names and date range
-def filter_data(data, streets, start_date, end_date):
-    # Remove timezone from Date column
-    data["Date"] = data["Date"].dt.tz_localize(None)
+def filter_data(data, streets, start_date, end_date): # Function to filter data based on street names and date range
+    data["Date"] = data["Date"].dt.tz_localize(None) # Remove timezone from Date column
 
-    # Filter data by streets and date range
-    filtered_data = data[
+    filtered_data = data[  # Filter data by streets and date range
         data["Location"].str.contains("|".join(streets), na=False) &
         (data["Date"] >= pd.Timestamp(start_date)) &
         (data["Date"] <= pd.Timestamp(end_date))
     ]
     return filtered_data
 
-# Function to aggregate the filtered data
-def aggregate_data(filtered_data):
+def aggregate_data(filtered_data): # Function to aggregate the filtered data
     aggregated_data = filtered_data.groupby("Location").agg(
         Total_Tickets=("Violation", "count"),
         Total_Fines=("Amount", "sum")
@@ -39,21 +35,18 @@ def main():
     file_path = st.file_uploader("Upload the Parking Violations CSV", type=["csv"])
     
     if file_path is not None:
-        # Load data
         data = load_data(file_path)
         st.success("Data loaded successfully!")
         st.write("Sample of the Data:")
         st.dataframe(data.head())
 
-        # Input filters
-        streets_of_interest = st.text_input(
+        streets_of_interest = st.text_input(  # Input filters
             "Enter Streets of Interest (comma-separated)", "comstock, walnut, marshall, university"
         )
         start_date = st.date_input("Start Date", pd.Timestamp("2024-08-01"))
         end_date = st.date_input("End Date", pd.Timestamp("2024-12-31"))
 
-        # Process filters
-        streets = [street.strip().lower() for street in streets_of_interest.split(",")]
+        streets = [street.strip().lower() for street in streets_of_interest.split(",")] # Process filters
         filtered_data = filter_data(data, streets, start_date, end_date)
 
         # Display filtered data
